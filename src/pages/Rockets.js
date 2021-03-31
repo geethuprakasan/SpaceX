@@ -8,13 +8,16 @@ export default function Rockets() {
   const dispatch = useDispatch();
   const rockets = useSelector((state) => state.spaceX.rockets);
 
-  useEffect(async () => {
+  const populateRockets = async () => {
+    const rockets = await getAllRockets();
+    dispatch({
+      type: "ADD_ROCKETS",
+      rockets: rockets?.data || [],
+    });
+  };
+  useEffect(() => {
     if (!rockets) {
-      const rockets = await getAllRockets();
-      dispatch({
-        type: "ADD_ROCKETS",
-        rockets: rockets?.data || [],
-      });
+      populateRockets();
     }
   }, []);
 
