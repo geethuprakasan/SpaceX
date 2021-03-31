@@ -17,5 +17,5 @@ jobs:
           CI='' npm run build
       - name: Firebase Deploy
         run: |
-          sudo npm install -g firebase-tools
+          sudo npm install -g firebase-tools --unsafe-perm
           firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
