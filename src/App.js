@@ -5,11 +5,24 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Capsules from "./pages/Capsules";
 import Login from "./pages/Login";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Admin from "./pages/Admin";
 import routeMap from "./utils/routeMap";
 function App() {
-  const { loggedIn, isAdmin } = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
+  const { loggedIn, isAdmin } = auth;
+  const dispatch = useDispatch();
+  if (loggedIn === undefined) {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      const loginPayload = JSON.parse(userInfo);
+      dispatch({
+        type: "LOGIN",
+        ...loginPayload,
+      });
+    }
+    debugger;
+  }
   if (!loggedIn) {
     return <Login />;
   }

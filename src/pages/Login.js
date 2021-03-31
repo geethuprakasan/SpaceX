@@ -1,6 +1,7 @@
 import { Form, Input, Button, Checkbox, Card } from "antd";
 import { useDispatch } from "react-redux";
 import { login } from "../utils/api";
+
 const layout = {
   labelCol: {
     span: 8,
@@ -19,17 +20,22 @@ const tailLayout = {
 const Login = () => {
   const dispatch = useDispatch();
 
+  const performLogin = (userInfo) => {
+    dispatch({
+      type: "LOGIN",
+      ...userInfo,
+    });
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+  };
+
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    debugger;
     const loginResponse = await login(values.username, values.password);
     if (loginResponse?.data) {
-      dispatch({
-        type: "LOGIN",
+      const loginPayload = {
         name: loginResponse?.data?.userName,
         isAdmin: loginResponse?.data?.isAdmin,
-      });
-    } else {
+      };
+      performLogin(loginPayload);
     }
   };
 
@@ -38,9 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "center", paddingTop: "150px" }}
-    >
+    <div className="login-page-wrap">
       <Card style={{ width: 400 }}>
         <Form
           {...layout}
@@ -83,7 +87,7 @@ const Login = () => {
 
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Login
             </Button>
           </Form.Item>
         </Form>

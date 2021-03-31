@@ -1,40 +1,31 @@
 import React from "react";
 import { Menu } from "antd";
 import { useHistory } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import "./NavBar.css";
 
 export default function NavBar() {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const logout = () => {
+    localStorage.removeItem("userInfo");
+    dispatch({ type: "LOGOUT" });
+    history.push("/");
+  };
+
   const handleMenuClick = ({ key }) => {
     if (key === "logout") {
-      dispatch({ type: "LOGOUT" });
-      history.push("/");
+      logout();
     }
   };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderBottom: "1px solid #e6e6e6",
-        padding: "0 30px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1000px",
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+    <div className="nav-wrap">
+      <div className="nav-container">
         <div style={{ fontWeight: 600 }}>
           Hi {`${user.userName}, ${user.isAdmin ? " (Admin)" : ""}`}
         </div>

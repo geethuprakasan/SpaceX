@@ -8,26 +8,22 @@ export default function Capsules() {
   const dispatch = useDispatch();
   const capsules = useSelector((state) => state.spaceX.capsules);
 
-  useEffect(async () => {
-    debugger;
+  const populateCapsules = async () => {
+    const capsules = await getAllCapsules();
+    dispatch({
+      type: "ADD_CAPSULES",
+      capsules: capsules?.data || [],
+    });
+  };
+
+  useEffect(() => {
     if (!capsules) {
-      const capsules = await getAllCapsules();
-      debugger;
-      dispatch({
-        type: "ADD_CAPSULES",
-        capsules: capsules?.data || [],
-      });
+      populateCapsules();
     }
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-evenly",
-        flexWrap: "wrap",
-      }}
-    >
+    <div className="capsule-page-wrap">
       {(capsules || []).map((capsule) => (
         <Capsule capsule={capsule} />
       ))}
