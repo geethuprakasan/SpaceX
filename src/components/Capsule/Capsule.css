@@ -1,5 +1,5 @@
 .capsule-wrap {
   width: 240px;
-  margin-top: 15px;
-  padding-top: 20px;
+  margin-top: 15px !important;
+  padding-top: 20px !important;
 }

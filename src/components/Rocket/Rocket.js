@@ -1,6 +1,7 @@
 import React from "react";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import "./Rocket.css";
+import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 
@@ -9,7 +10,16 @@ export default function Rocket({ rocket }) {
     <Card
       hoverable
       className="rocket-wrap"
-      cover={<img alt="rocket" src={rocket?.flickr_images?.[0]} />}
+      cover={
+        rocket?.flickr_images?.length && (
+          <img alt="rocket" src={rocket?.flickr_images?.[0]} />
+        )
+      }
+      actions={[
+        <Link to={`/rocket/${rocket.id}`}>
+          <Button type="primary">More Info</Button>
+        </Link>,
+      ]}
     >
       <Meta title={rocket?.name} description={rocket?.description} />
     </Card>

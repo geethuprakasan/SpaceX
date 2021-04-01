@@ -1,6 +1,7 @@
 import Admin from "../pages/Admin";
 import Capsules from "../pages/Capsules";
 import Dashboard from "../pages/Dashboard";
+import RocketInfo from "../pages/RocketInfo";
 import Rockets from "../pages/Rockets";
 
 const routeMap = {
@@ -14,6 +15,11 @@ const routeMap = {
       exact: true,
       path: "/rockets",
       component: Rockets,
+    },
+    {
+      exact: true,
+      path: "/rocket/:rocketId",
+      component: RocketInfo,
     },
     {
       exact: true,

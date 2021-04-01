@@ -9,6 +9,5 @@ export function spaceXReducer(state = initialState, action) {
     }
     default:
       return state;
-    // other cases
   }
 }

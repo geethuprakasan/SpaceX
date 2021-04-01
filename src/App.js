@@ -21,7 +21,6 @@ function App() {
         ...loginPayload,
       });
     }
-    debugger;
   }
   if (!loggedIn) {
     return <Login />;
